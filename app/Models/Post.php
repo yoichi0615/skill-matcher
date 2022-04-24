@@ -12,4 +12,8 @@ class Post extends Model
     {
       return $this->belongsTo(User::class);
     }
+
+    public function post_reviews() {
+        return $this->hasMany(PostReview::class);
+    }
 }

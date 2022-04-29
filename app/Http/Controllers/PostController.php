@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,11 +14,11 @@ class PostController extends Controller
 {
     public function index(Request $request) {
         $keyword = $request->keyword;
+        $query = Post::with('user');
         if (!empty($keyword)) {
-            $posts = Post::where('summary', 'LIKE', '%' . $keyword . '%')->get();
-        } else {
-            $posts = Post::all();
+            $query = $query->where('summary', 'LIKE', '%' . $keyword . '%');
         }
+        $posts = $query->get();
         return view('post.index', compact('keyword', 'posts'));
     }
 
@@ -25,8 +27,12 @@ class PostController extends Controller
         return view('post.create', ['user' => $user]);
     }
 
-    public function store(Request $request, Post $post) {
-        
+    public function show(Request $request) {
+        $post = Post::find($request->id);
+        return view('post.show', ['post' => $post]);
+    }
+
+    public function store(PostRequest $request, Post $post) {
         $inputValues = $request->except('_token');
         $image = $request->file('image');
         if ($image) {
@@ -40,6 +46,17 @@ class PostController extends Controller
             $post->display_flg = $request['display_flg'];
         }
         $post->save();
+        
+        $tags = collect(json_decode($request['tags']))
+        ->slice(0, 5)
+        ->map(function ($requestTag) {
+            return $requestTag->text;
+        });
+
+        $tags->each(function ($tagName) use ($post) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $post->tags()->syncWithoutDetaching($tag);
+        });
 
         return redirect()->route('index');
     }

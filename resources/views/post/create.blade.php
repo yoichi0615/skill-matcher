@@ -42,6 +42,8 @@
   <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
   {{-- <form action="" method="POST"> --}}
     @csrf
+    <post-tags-input>
+    </post-tags-input>
     <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="card">
       <div class="in">

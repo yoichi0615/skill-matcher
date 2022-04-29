@@ -186,17 +186,19 @@ select {
     <div class="right d-flex flex-wrap mt-3">
       @foreach ($posts as $post)
       <div class="card m-3 p-content-card plan-card">
-        <div class="card-body">
-          <div class="eye_catch">
-            ここに画像が入ります(上部)
-          </div>
-          <div class="inner_card">
-            <div class="plan_text">
-              {{ $post->summary }}</br>
-              ここに説明文とユーザーの写真、評価などが入ります。(下部)
+        <a href="{{route('post.show', ['id' => $post->id])}}">
+          <div class="card-body">
+            <div class="eye_catch">
+              {{ $post->user->name }}
+            </div>
+            <div class="inner_card">
+              <div class="plan_text">
+                {{ $post->summary }}</br>
+                ここに説明文とユーザーの写真、評価などが入ります。(下部)
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
       @endforeach
       <div class="card m-3 p-content-card plan-card">

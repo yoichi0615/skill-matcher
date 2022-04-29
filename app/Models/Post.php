@@ -13,6 +13,10 @@ class Post extends Model
       return $this->belongsTo(User::class);
     }
 
+    public function tags() {
+      return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
     public function post_reviews() {
         return $this->hasMany(PostReview::class);
     }

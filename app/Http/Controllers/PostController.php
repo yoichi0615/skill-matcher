@@ -65,7 +65,8 @@ class PostController extends Controller
         return redirect()->route('index');
     }
 
-    // public function edit(Request $request) {
-    //     
-    // }
+    public function edit(Request $request) {
+        $post = Post::find($request->id);
+        return view('post.edit', ['post' => $post]);
+    }
 }

@@ -186,7 +186,7 @@ select {
     <div class="right d-flex flex-wrap mt-3">
       @foreach ($posts as $post)
       <div class="card m-3 p-content-card plan-card">
-        <a href="{{route('post.show', ['id' => $post->id])}}">
+        <a href="{{route('post.show', ['id' => $post->id])}}">     
           <div class="card-body">
             <div class="eye_catch">
               {{ $post->user->name }}

@@ -3,6 +3,10 @@
 <div>
   これはユーザー（投稿の詳細ページです。）
 </div>
+@if (\Auth::user()->id === $post->user_id)
+    <a href="{{ route('post.edit' )}}">投稿を編集</a>
+@endif
+
 <section>
   <div class="container">
     <div class="col-md-8 item-frame">

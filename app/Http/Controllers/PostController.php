@@ -12,27 +12,31 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request) 
+    {
         $keyword = $request->keyword;
         $query = Post::with('user');
         if (!empty($keyword)) {
             $query = $query->where('summary', 'LIKE', '%' . $keyword . '%');
         }
-        $posts = $query->get();
+        $posts = $query->orderBy('created_at', 'DESC')->get();
         return view('post.index', compact('keyword', 'posts'));
     }
 
-    public function create() {
+    public function create() 
+    {
         $user = Auth::user();
         return view('post.create', ['user' => $user]);
     }
 
-    public function show(Request $request) {
+    public function show(Request $request) 
+    {
         $post = Post::find($request->id);
         return view('post.show', ['post' => $post]);
     }
 
-    public function store(PostRequest $request, Post $post) {
+    public function store(PostRequest $request, Post $post) 
+    {
         $inputValues = $request->except('_token');
         $image = $request->file('image');
         if ($image) {
@@ -46,7 +50,7 @@ class PostController extends Controller
             $post->display_flg = $request['display_flg'];
         }
         $post->save();
-        
+
         $tags = collect(json_decode($request['tags']))
         ->slice(0, 5)
         ->map(function ($requestTag) {
@@ -60,4 +64,8 @@ class PostController extends Controller
 
         return redirect()->route('index');
     }
+
+    // public function edit(Request $request) {
+    //     
+    // }
 }

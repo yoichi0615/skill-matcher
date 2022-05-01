@@ -9,7 +9,7 @@ class Tag extends Model
     protected $guarded = ['id'];
     public function posts()
     {
-        $this->belongsToMany(Post::class)->withTimestamps();
+        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 
     public function getHashTagAttribute()

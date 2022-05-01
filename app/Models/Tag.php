@@ -11,4 +11,9 @@ class Tag extends Model
     {
         $this->belongsToMany(Post::class)->withTimestamps();
     }
+
+    public function getHashTagAttribute()
+    {
+        return '#' . $this->name;
+    }
 }

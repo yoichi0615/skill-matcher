@@ -27,7 +27,7 @@
             <button type="submit">ログアウト</button>
           </form>
           @else
-          <a href="{{ route('register') }}">ユーザー登録</a>
+          <a href="{{ route('login') }}">ログイン/ユーザー登録</a>
           @endif
       </nav>
     </div>

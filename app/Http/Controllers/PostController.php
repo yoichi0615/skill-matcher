@@ -26,7 +26,10 @@ class PostController extends Controller
     public function create() 
     {
         $user = Auth::user();
-        return view('post.create', ['user' => $user]);
+        $allTagNames = Tag::all()->map(function($tag) {
+            return ['text' => $tag->name];
+        });
+        return view('post.create', compact('user', 'allTagNames'));
     }
 
     public function show(Request $request) 
@@ -67,6 +70,13 @@ class PostController extends Controller
 
     public function edit(Request $request) {
         $post = Post::find($request->id);
-        return view('post.edit', ['post' => $post]);
+        $tagNames = $post->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+        
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+        return view('post.edit', compact('tagNames', 'allTagNames', 'post'));
     }
 }

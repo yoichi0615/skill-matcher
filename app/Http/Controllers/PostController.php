@@ -68,8 +68,8 @@ class PostController extends Controller
         return redirect()->route('index');
     }
 
-    public function edit(Request $request) {
-        $post = Post::find($request->id);
+    public function edit(Request $request, $id) {
+        $post = Post::find($id);
         $tagNames = $post->tags->map(function ($tag) {
             return ['text' => $tag->name];
         });

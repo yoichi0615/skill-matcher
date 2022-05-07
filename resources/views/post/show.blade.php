@@ -5,7 +5,7 @@
 </div>
 @auth
   @if (\Auth::user()->id === $post->user_id)
-      <a href="{{ route('post.edit' )}}">投稿を編集</a>
+      <a href="{{ route('post.edit', ['id' => $post->id] )}}">投稿を編集</a>
   @endif
 @endauth
 @php
@@ -18,7 +18,9 @@
       <div class="item-heder">
         <span>
           @foreach ($post->tags as $tag)
-            {{$tag->hash_tag}}
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 mr-1 mt-1 text-muted">
+              {{$tag->hash_tag}}
+            </a>
           @endforeach
         </span>
         <h1 class="item-header-title">{{ $post->summary }}</h1>

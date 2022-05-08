@@ -19,6 +19,9 @@ Route::get('/post/create', 'PostController@create')->name('post.create')->middle
 Route::get('/post/detail/{id}', 'PostController@show')->name('post.show');
 Route::get('/post/edit/{id}', 'PostController@edit')->name('post.edit');
 Route::post('/user/store', 'PostController@store')->name('post.store');
+Route::post('/post/update', 'PostController@update')->name('post.update');
+
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
+
 
 

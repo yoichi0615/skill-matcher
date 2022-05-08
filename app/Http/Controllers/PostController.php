@@ -40,18 +40,21 @@ class PostController extends Controller
 
     public function store(PostRequest $request, Post $post) 
     {
-        $inputValues = $request->except('_token');
-        $image = $request->file('image');
-        if ($image) {
-            $path = Storage::disk('public')->putFile('image', $image);
-            $imageFileName = basename($path);
-            $post->image = $imageFileName;
-        } 
         $post->user_id = $request['user_id'];
         $post->summary = $request['summary'];
         if(isset($inputValues['display_flg'])) {
             $post->display_flg = $request['display_flg'];
         }
+        $upload_image = $request->file('image');
+        if($upload_image) {
+			$path = $upload_image->store('uploads',"public");
+			if($path){
+                $post->image = $upload_image->getClientOriginalName();
+                $post->image_path = $path;
+			}
+		}
+        $post->description = $request['description'];
+        $post->want = $request['want'];
         $post->save();
 
         $tags = collect(json_decode($request['tags']))
@@ -66,6 +69,21 @@ class PostController extends Controller
         });
 
         return redirect()->route('index');
+    }
+
+    public function update(PostRequest $request) 
+    {
+        // dd($request);
+        $postId = Auth::user()->id;
+        $post = Post::find($postId);
+        $params = $request->except('_token');
+        $upload_image = $request->file('image');
+        if($upload_image) {
+			$path = $upload_image->store('uploads',"public");
+            $params['image_path'] = $path;
+		}
+        $post->update($params);
+        return redirect()->route('post.show', ['id' => $post->id]);
     }
 
     public function edit(Request $request, $id) {

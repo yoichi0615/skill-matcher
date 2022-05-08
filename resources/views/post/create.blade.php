@@ -46,7 +46,7 @@
       :autocomplete-items='@json($allTagNames ?? [])'
     >
     </post-tags-input>
-    <input type="hidden" name="user_id" value="{{ $user->id }}">
+    <input type="hidden" name="user_id" value="{{ \Auth::user()->id }}">
     <div class="card">
       <div class="in">
         <div class="heading_label">
@@ -57,18 +57,36 @@
           <input type="file" name="image" accept="image/png,image/jpeg,image/gif">
         </div>
         <div class="heading_label">
-          <span>投稿内容①</span>
+          <span>投稿内容①(タイトル)
+          </span>
           <span style="margin-bottom: 0.5rem;">必須</span>
         </div>
         <div>
           <input type="text" name="summary" placeholder="PHPについて教えてくれる方募集しています">
         </div>
+        @if ($errors->has('summary'))
+        <span class="validate">
+          {{ $errors->first('summary') }}
+        </span>
+        @endif
         <div class="heading_label">
-          <span>投稿内容①</span>
+          <span>投稿内容②(詳細)</span>
           <span style="margin-bottom: 0.5rem;">必須</span>
         </div>
         <div>
-          <input type="text" name="want" placeholder="PHPについて教えてくれる方募集しています">
+          <textarea name="description" id="" cols="30" rows="10"></textarea>
+        </div>
+        @if ($errors->has('description'))
+        <span class="validate">
+          {{ $errors->first('description') }}
+        </span>
+        @endif
+        <div class="heading_label">
+          <span>欲しいスキル()</span>
+          <span style="margin-bottom: 0.5rem;">必須</span>
+        </div>
+        <div>
+          <textarea name="want" id="" cols="30" rows="10"></textarea>
         </div>
         <div class="heading_label">
           <span>投稿を表示する</span>

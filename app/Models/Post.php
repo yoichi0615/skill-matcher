@@ -17,7 +17,7 @@ class Post extends Model
       return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
-    public function post_reviews() {
+    public function reviews() {
         return $this->hasMany(PostReview::class);
     }
 }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div>
   これはユーザー（投稿の詳細ページです。）
 </div>
@@ -23,8 +24,10 @@
             </a>
           @endforeach
         </span>
+        <h6 class="">提供タイトル</h1>
         <h1 class="item-header-title">{{ $post->summary }}</h1>
-        <h3 class="item-header-want">求めるスキル</h3>
+        <h6 class="item-header-want">求めるスキル</h3>
+        <p style="font-size: 30px;">{{ $post->want }}</p>
         <span>所在地（必要であれば）</span>
       </div>
       <div class="item-image">
@@ -34,14 +37,14 @@
       </div>
       <div class="item-description">
         <figure>
-          <ul>
-            <li>
+          <ul style="list-style: none;">
+            <li style="border-bottom: 1px solid gray;">
               <span style="font-size:12px;">発行日</span>
-              <span style="font-size:15px;">{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }} ({{$now->diffInDays($post->created_at)}}日前)</span>
+              <span style="font-size:15px;">{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}（@if($now->diffInDays($post->created_at) === 0)今日@else {{$now->diffInDays($post->created_at)}}日前 @endif）</span>
               <span style="font-size:12px;">最終更新</span>
-              <span style="font-size:15px;">{{ \Carbon\Carbon::parse($post->updated_at)->format('Y-m-d') }} ({{$now->diffInDays($post->created_at)}}日前)</span>
+              <span style="font-size:15px;">{{ \Carbon\Carbon::parse($post->updated_at)->format('Y-m-d') }}（@if($now->diffInDays($post->created_at) === 0)今日@else {{$now->diffInDays($post->created_at)}}日前 @endif）</span>
             </li>
-            <li>
+            <li style="border-bottom: 1px solid gray;">
               <div>タグを挿入（仮置き）</div>
             </li>
           </ul>

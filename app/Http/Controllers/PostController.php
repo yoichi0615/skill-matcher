@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use \InterventionImage;
 
 
 class PostController extends Controller
@@ -47,6 +48,10 @@ class PostController extends Controller
         }
         $upload_image = $request->file('image');
         if($upload_image) {
+            InterventionImage::make($upload_image)
+            ->resize(600, 400)
+            ->save();
+
 			$path = $upload_image->store('uploads',"public");
 			if($path){
                 $post->image = $upload_image->getClientOriginalName();

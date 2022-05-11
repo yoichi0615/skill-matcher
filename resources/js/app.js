@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import PostTagsInput from './components/PostTagsInput'
+import ChatComponent from './components/ChatComponent'
 
 
 /**
@@ -35,6 +36,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     components: {
-        PostTagsInput
+        PostTagsInput,
+        ChatComponent
     }
 });

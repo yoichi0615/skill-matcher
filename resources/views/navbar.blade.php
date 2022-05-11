@@ -21,7 +21,7 @@
         </form>
           <a href="{{ route('register') }}"><i class="bi bi-person-circle"></i></a>
           @if( \Auth::check() )
-          <span>{{ \Auth::user()->name }}</span>
+          <a href="`{{ route('user.edit') }}"><span>{{ \Auth::user()->name }}</span></a>
           <form action="{{ route('logout')}}" method="POST">
             @csrf
             <button type="submit">ログアウト</button>

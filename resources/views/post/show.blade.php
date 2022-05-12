@@ -54,4 +54,4 @@
   </div>
   <chat-component></chat-component>
 </section>
-@endsection 
+@endsection

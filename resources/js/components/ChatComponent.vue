@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea v-model="message"></textarea><br>
-    <button type="button" @click="send">送信</button>
+    <button type="button" @click="send()">送信</button>
     <p v-for="(m, key) in messages" :key="key">
       <span v-text="m.created_at"></span>
       <span v-text="m.body"></span>
@@ -36,7 +36,12 @@ export default {
       }
   },
   mounted() {
-    this.getMessages();
+    // this.getMessages();
+    Echo.channel('chat')
+    .listen('ChatCreated', (e) => {
+      console.log(e)
+      this.getMessages();
+    });
   }
 };
 </script>

@@ -52,6 +52,6 @@
       </div>
     </div>
   </div>
-  <chat-component></chat-component>
 </section>
+<a href="{{route('chat.index')}}"><div>メッセージを送る</div></a>
 @endsection

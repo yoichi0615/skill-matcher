@@ -3,6 +3,7 @@
     <textarea v-model="message"></textarea><br>
     <button type="button" @click="send()">送信</button>
     <p v-for="(m, key) in messages" :key="key">
+      {{name}}
       <span v-text="m.created_at"></span>
       <span v-text="m.body"></span>
     </p>
@@ -11,16 +12,27 @@
 
 <script>
 export default {
+  props: {
+    userId: {
+      type:Number,
+      default:0
+    },
+    userName: {
+      type:String,
+      default: ''
+    }
+  },
   data() {
     return {
       message: '',
-      messages: []
+      messages: [],
+      name:this.userName
     }
   },
   methods: {
     send() {
       const url = '/ajax/chat';
-      const params = { message: this.message };
+      const params = { message: this.message, userId: this.userId};
       axios.post(url, params)
         .then((response) => {
             // 通信成功後メッセージ初期化
@@ -36,6 +48,7 @@ export default {
       }
   },
   mounted() {
+    console.log('userid'+ this.userId)
     // this.getMessages();
     Echo.channel('chat')
     .listen('ChatCreated', (e) => {

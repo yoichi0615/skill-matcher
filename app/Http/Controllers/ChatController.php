@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
+    public function index()
+    {
+        return view('chat.index');
+    }
+
     public function getChat()
     {
         return Chat::orderBy('id', 'desc')->get();
@@ -17,7 +22,7 @@ class ChatController extends Controller
     {
         \Log::info($request);
         $chat = Chat::create([
-            'user_id' => 1,
+            'user_id' => $request->userId,
             'body' => $request->message
         ]);
 

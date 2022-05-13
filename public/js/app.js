@@ -5125,11 +5125,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    userId: {
+      type: Number,
+      "default": 0
+    },
+    userName: {
+      type: String,
+      "default": ''
+    }
+  },
   data: function data() {
     return {
       message: '',
-      messages: []
+      messages: [],
+      name: this.userName
     };
   },
   methods: {
@@ -5138,7 +5150,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = '/ajax/chat';
       var params = {
-        message: this.message
+        message: this.message,
+        userId: this.userId
       };
       axios.post(url, params).then(function (response) {
         // 通信成功後メッセージ初期化
@@ -5157,7 +5170,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this3 = this;
 
-    // this.getMessages();
+    console.log('userid' + this.userId); // this.getMessages();
+
     Echo.channel('chat').listen('ChatCreated', function (e) {
       console.log(e);
 
@@ -48648,6 +48662,7 @@ var render = function () {
       _vm._v(" "),
       _vm._l(_vm.messages, function (m, key) {
         return _c("p", { key: key }, [
+          _vm._v("\n    " + _vm._s(_vm.name) + "\n    "),
           _c("span", { domProps: { textContent: _vm._s(m.created_at) } }),
           _vm._v(" "),
           _c("span", { domProps: { textContent: _vm._s(m.body) } }),

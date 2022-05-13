@@ -26,6 +26,6 @@ Route::post('/post/update', 'PostController@update')->name('post.update');
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 
 //chat
-Route::get('/chat', 'ChatController@index');
+Route::get('/chat', 'ChatController@index')->name('chat.index');
 Route::get('ajax/chat', 'ChatController@getChat'); // メッセージ一覧を取得
 Route::post('ajax/chat', 'ChatController@createChat'); // チャット登録

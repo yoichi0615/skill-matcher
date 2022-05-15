@@ -25,7 +25,18 @@ Route::post('/post/update', 'PostController@update')->name('post.update');
 //tag
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 
+//room
+Route::post('/user/{partner_id}/room', 'RoomController@create')->name('create_room');
+Route::get('/user/{user_id}/room_main', 'RoomController@index')->name('chat_room_list');
+Route::get('/user/{user_id}/room_redirect/{another_user_id}', 'RoomController@redirectRoom')->name('chat_room_redirect');
+Route::get('/user/{user_id}/room_get/{room_id}', 'RoomController@getChatRoom')->name('chat_room_get');
+Route::get('/user/{user_id}/room_list_get', 'RoomController@getRoomList')->name('room_list_get');
+
 //chat
 Route::get('/chat', 'ChatController@index')->name('chat.index');
-Route::get('ajax/chat', 'ChatController@getChat'); // メッセージ一覧を取得
-Route::post('ajax/chat', 'ChatController@createChat'); // チャット登録
+Route::get('/chat/{room_id}/room_chat', 'ChatController@getAllChat');
+Route::get('/user/{room_id}/get_latest_chat', 'ChatController@getLatestChat')->name('get_latest_chat');
+Route::put('/user/{room_id}/chat_update', 'ChatController@update')->name('chat_update');
+Route::post('/user/{room_id}/chat_delete', 'ChatController@destroy')->name('chat_delete');
+Route::get('ajax/chat', 'ChatController@getChat');
+Route::post('ajax/chat', 'ChatController@createChat');

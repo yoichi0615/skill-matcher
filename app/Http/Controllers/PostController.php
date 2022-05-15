@@ -33,10 +33,10 @@ class PostController extends Controller
         return view('post.create', compact('user', 'allTagNames'));
     }
 
-    public function show(Request $request) 
+    public function show(Request $request, $id) 
     {
         $post = Post::find($request->id);
-        return view('post.show', ['post' => $post]);
+        return view('post.show', ['post' => $post, 'id' => $id]);
     }
 
     public function store(PostRequest $request, Post $post) 

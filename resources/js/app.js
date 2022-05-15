@@ -10,6 +10,10 @@ window.Vue = require('vue');
 
 import PostTagsInput from './components/PostTagsInput'
 import ChatComponent from './components/ChatComponent'
+import ExampleComponent from './components/ExampleComponent'
+import ChatButtonComponent from './components/ChatButtonComponent'
+import ChatListComponent from './components/ChatListComponent'
+import store from './store';
 
 
 /**
@@ -35,8 +39,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    store,
     components: {
         PostTagsInput,
-        ChatComponent
+        ChatComponent,
+        ExampleComponent,
+        ChatButtonComponent,
+        ChatListComponent,
     }
 });

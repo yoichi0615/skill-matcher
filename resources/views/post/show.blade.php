@@ -53,5 +53,12 @@
     </div>
   </div>
 </section>
-<a href="{{route('chat.index')}}"><div>メッセージを送る</div></a>
+@php
+// dd(\Auth::user()->id);
+    \Log::info('a');
+    \Log::info(\Auth::user()->hasRoom(\Auth::user()->hasRoom(\Auth::user()->id)));
+
+@endphp
+<chat-button-component :login-user-id="{{\Auth::user()->id}}" :user-id="{{ $id }}" :has-room="@if(!\Auth::user()->hasRoom(\Auth::user()->hasRoom(\Auth::user()->id))) 0 @else 1 @endif"></chat-button-component>
+{{-- <a href="{{route('chat.index')}}"><div>メッセージを送る</div></a> --}}
 @endsection

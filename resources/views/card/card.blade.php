@@ -23,6 +23,9 @@
           {{ $post->summary }}</br>
           ここに説明文とユーザーの写真、評価などが入ります。(下部)
         </div>
+        <div class="image">
+          <img src="{{ Storage::url($post->image_path) }}" style="border-radius: 50%; width:30%;">
+        </div>
       </div>
     </div>
   </a>

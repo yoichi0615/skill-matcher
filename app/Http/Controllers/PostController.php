@@ -49,7 +49,7 @@ class PostController extends Controller
         $upload_image = $request->file('image');
         if($upload_image) {
             InterventionImage::make($upload_image)
-            ->resize(600, 400)
+            ->resize(500, 500)
             ->save();
 
 			$path = $upload_image->store('uploads',"public");
